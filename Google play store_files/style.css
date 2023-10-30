@@ -1,0 +1,22 @@
+h1,
+h2,
+.css-k7vsyb span,
+.css-10y5sf6{
+  color: rgb(186, 131, 239);
+}
+div.st-cc > div > div > div > div:nth-child(2) > input[type="range"]::-webkit-slider-thumb {
+background-color: rgb(124, 29, 213); 
+}
+div.st-cc > div > div > div > div:nth-child(2) > input[type="range"]::-webkit-slider-runnable-track {
+background-color: rgb(96, 21, 165);
+}
+.st-br        ,.st-cn{
+background: rgb(124, 29, 213); 
+}
+.css-1vzeuhh{
+background-color:rgb(62, 15, 106);
+}
+.css-1dp5vir{
+background-image: linear-gradient(90deg, rgb(44 2 78), rgb(169 149 255));
+height: 10px;
+}

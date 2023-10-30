@@ -1,0 +1,8 @@
+streamlit run app.py 
+
+requirements:
+Numpy
+pandas 
+matplotlib
+seaborn
+streamlit
