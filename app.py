@@ -3,6 +3,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 import streamlit as st
 import seaborn as sns
+from sklearn.linear_model import LinearRegression
+from sklearn.preprocessing import LabelEncoder
+from sklearn.model_selection import train_test_split
 
 # preparing for the header
 st.set_page_config(page_title='Google play store',
@@ -294,6 +297,39 @@ with pie1:
 
 with pie2:
     st.pyplot(fig2)
+
+# Machine learning algorithm
+category_encoder = LabelEncoder()
+content_rating_encoder = LabelEncoder()
+category_encoder.fit(df['Category'])
+df['Category'] = category_encoder.transform(df['Category'])
+content_rating_encoder.fit(df['Content Rating'])
+df['Content Rating'] = content_rating_encoder.transform(df['Content Rating'])
+category_mapping = dict(zip(category_encoder.classes_,
+                        category_encoder.transform(category_encoder.classes_)))
+content_rating_mapping = dict(zip(content_rating_encoder.classes_,
+                              content_rating_encoder.transform(content_rating_encoder.classes_)))
+# Train a Linear Regression model
+X = df[['Category', 'Content Rating', 'Reviews']]
+y = df['Rating']
+model = LinearRegression()
+model.fit(X, y)
+st.title("Google Play Store NEW App Rating Prediction")
+st.subheader("Predict App Rating")
+user_category = st.selectbox(
+    "Select App Category:", list(category_mapping.keys()))
+user_content_rating = st.selectbox(
+    "Select Content Rating:", list(content_rating_mapping.keys()))
+user_reviews = st.number_input("Enter Number of Reviews:", min_value=0)
+# Map user input values
+user_category_encoded = category_mapping[user_category]
+user_content_rating_encoded = content_rating_mapping[user_content_rating]
+# Create a DataFrame for the user input
+user_data = pd.DataFrame(
+    [[user_category_encoded, user_content_rating_encoded, user_reviews]])
+# Make predictions for the user input
+predicted_rating = model.predict(user_data)
+st.write(f"Predicted Rating for the App: {predicted_rating[0]:.2f}")
 
 
 # to view top rank holders for sorting
